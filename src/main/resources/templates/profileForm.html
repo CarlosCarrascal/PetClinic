@@ -1,0 +1,19 @@
+<!-- src/main/resources/templates/profileForm.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Profile Form</title>
+</head>
+<body>
+    <h2>Profile Form</h2>
+    <form th:action="@{/saveProfile}" th:object="${profile}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}" />
+        <br/>
+        <label for="description">Description:</label>
+        <input type="text" id="description" th:field="*{description}" />
+        <br/>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
