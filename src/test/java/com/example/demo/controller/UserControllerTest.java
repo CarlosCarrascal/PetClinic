@@ -18,6 +18,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.example.demo.Controller.UserController;
 import com.example.demo.Model.User;
@@ -36,7 +38,15 @@ public class UserControllerTest {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+        
+        // Configurar ViewResolver para las pruebas
+        ViewResolver viewResolver = new InternalResourceViewResolver();
+        ((InternalResourceViewResolver) viewResolver).setPrefix("/WEB-INF/views/");
+        ((InternalResourceViewResolver) viewResolver).setSuffix(".html");
+        
+        mockMvc = MockMvcBuilders.standaloneSetup(userController)
+                .setViewResolvers(viewResolver)
+                .build();
     }
 
     @Test
